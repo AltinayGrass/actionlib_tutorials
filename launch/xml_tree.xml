@@ -1,0 +1,29 @@
+<root BTCPP_format="4">
+    <BehaviorTree ID="MainTree">
+        <ReactiveSequence name="root">
+            <BatteryOK/>
+            <Sequence>
+                <Script code=" move_goal='1;-1.15;-0.3;-0.5;0.5;-0.5;0.5' " />
+                <SubTree ID="MoveRobot" target="{move_goal}" result="{move_result}" />
+                <SaySomething message="{move_result}"/>
+                <Script code=" move_goal='2;0;1;1;0;0;0' " />
+                <SubTree ID="MoveRobot" target="{move_goal}" result="{move_result}" />
+                <SaySomething message="{move_result}"/>
+                <Script code=" move_goal='3;0;1;1;0;0;0' " />
+                <SubTree ID="MoveRobot" target="{move_goal}" result="{move_result}" />
+                <SaySomething message="{move_result}"/>
+            </Sequence>
+        </ReactiveSequence>
+    </BehaviorTree>
+    <BehaviorTree ID="MoveRobot">
+        <Fallback>
+            <Sequence>
+                <MoveBase  goal="{target}"/>
+                <Script code=" result:='goal reached' " />
+            </Sequence>
+            <ForceFailure>
+                <Script code=" result:='error' " />
+            </ForceFailure>
+        </Fallback>
+    </BehaviorTree>
+</root>

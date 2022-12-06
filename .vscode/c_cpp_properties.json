@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "${default}",
+                "limitSymbolsToIncludedHeaders": false
+            },
+            "includePath": [
+                "/opt/ros/noetic/include/**",
+                "/home/agan/ws_moveit/src/moveit_bt/include/**",
+                "/usr/include/**",
+                "/home/agan/BehaviorTree.CPP/include/behaviortree_cpp/**",
+                "/home/agan/ws_moveit/devel/include/actionlib_tutorials/**"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

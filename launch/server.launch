@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="actionlib_tutorials" type="srgoal_server" name="srgoal_server" output="screen"/>
+</launch>
