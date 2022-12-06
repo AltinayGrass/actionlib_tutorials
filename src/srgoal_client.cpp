@@ -53,7 +53,7 @@ class MoveBaseAction : public BT::StatefulActionNode
   public:
     // Any TreeNode with ports must have a constructor with this signature
     MoveBaseAction(const std::string& name, const BT::NodeConfig& config)
-      : StatefulActionNode(name, config), ac("srgoal", true)
+      : StatefulActionNode(name, config), ac("/srgoal_server/srgoal_srv", true)
     {
       ROS_INFO("Waiting for action server to start.");
       // wait for the action server to start
@@ -217,7 +217,7 @@ using namespace BT;
 
  int main (int argc, char **argv)
 {
-  ros::init(argc, argv, "test_fibonacci");
+  ros::init(argc, argv, "test_srgoal");
   BehaviorTreeFactory factory;
   factory.registerSimpleCondition("BatteryOK", std::bind(CheckBattery));
   factory.registerNodeType<MoveBaseAction>("MoveBase");

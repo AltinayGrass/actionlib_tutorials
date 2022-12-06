@@ -4,7 +4,6 @@
 #include <moveit/moveit_cpp/moveit_cpp.h>
 #include <moveit/moveit_cpp/planning_component.h>
 #include <moveit/robot_state/conversions.h>
-
 #include <moveit_msgs/CollisionObject.h>
 
 #include <geometry_msgs/PointStamped.h>
@@ -31,11 +30,11 @@ protected:
 public:
 
   SrGoalAction(std::string name) :
+    nh_("/srgoal_server"),
     as_(nh_, name, boost::bind(&SrGoalAction::executeCB, this, _1), false),
     action_name_(name)
   {
     ros::Duration(1.0).sleep();
-    as_.start();
     ROS_INFO_STREAM_NAMED(LOGNAME, "Starting SrGoal Action Server...");
     moveit_cpp_ptr = std::make_shared<moveit_cpp::MoveItCpp>(nh_);
     moveit_cpp_ptr->getPlanningSceneMonitor()->providePlanningSceneService();
@@ -70,7 +69,7 @@ public:
     }  // Unlock PlanningScene
   
     planning_components->setStartStateToCurrentState();
-
+    as_.start();
   }
 
   ~SrGoalAction(void)
@@ -142,10 +141,9 @@ private:
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "srgoal");
-
-  SrGoalAction srgoal("srgoal");
+  int i;
+  ros::init(argc, argv, "srgoal_srv");
+  SrGoalAction srgoal("srgoal_srv");
   ros::spin();
-
   return 0;
 }
