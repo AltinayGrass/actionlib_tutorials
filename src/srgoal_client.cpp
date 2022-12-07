@@ -129,6 +129,13 @@ BT::NodeStatus MoveBaseAction::onRunning()
     std::cout << "[ MoveBase: FINISHED ]" << std::endl;
     return BT::NodeStatus::SUCCESS;
   }
+
+  if( state == actionlib::SimpleClientGoalState::PREEMPTED)
+  {
+    std::cout << "[ MoveBase: PREEMTED ]" << std::endl;
+    return BT::NodeStatus::FAILURE;
+  }
+
   return BT::NodeStatus::RUNNING;
 }
 
@@ -242,7 +249,13 @@ using namespace BT;
       std::cout << "--- ticking\n";
       status = tree.tickOnce();
       std::cout << "--- status: " << toStr(status) << "\n\n";
-
+      
+      // if failure, add some wait time
+      if (status == NodeStatus::FAILURE)
+      {
+        std::cout << "--- aborted\n";
+        break;
+      }
       // if still running, add some wait time
       if (status == NodeStatus::RUNNING)
       {

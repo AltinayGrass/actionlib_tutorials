@@ -110,17 +110,17 @@ public:
 
     // Now, we call the PlanningComponents to compute the plan and visualize it.
     // Note that we are just planning
-    auto plan_solution1 = planning_components->plan();
+    auto plan_solution = planning_components->plan();
 
     // Check if PlanningComponents succeeded in finding the plan
-    if (plan_solution1)
+    if (plan_solution)
     {
       /* Uncomment if you want to execute the plan */
       planning_components->execute(); // Execute the plan */
     }
 
     // check that preempt has not been requested by the client
-    if (as_.isPreemptRequested() || !ros::ok())
+    if (as_.isPreemptRequested() || !ros::ok() || !plan_solution)
     {
       ROS_INFO("%s: Preempted", action_name_.c_str());
       // set the action state to preempted
