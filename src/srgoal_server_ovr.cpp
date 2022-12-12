@@ -89,14 +89,15 @@ public:
     feedback_.noerror=true;
 
  // publish info to the console for the user
-    ROS_INFO("%s: Executing, creating srgoal sequence of goal {x:%.2f y:%.2f z:%.2f q1:%.2f q2:%.2f q3:%.3f q4:%.3f} with default velocity", action_name_.c_str(), 
+    ROS_INFO("%s: Executing, creating srgoal sequence of goal {x:%.2f y:%.2f z:%.2f q1:%.2f q2:%.2f q3:%.3f q4:%.3f  override:%d} with default velocity", action_name_.c_str(), 
               goal->pos.position.x,
               goal->pos.position.y,
               goal->pos.position.z, 
               goal->pos.orientation.x,
               goal->pos.orientation.y,
               goal->pos.orientation.z,
-              goal->pos.orientation.w);
+              goal->pos.orientation.w,
+              m_override);
 
     // The first way to set the goal of the plan is by using geometry_msgs::PoseStamped ROS message type as follow
     geometry_msgs::PoseStamped target_pose1;
