@@ -159,6 +159,8 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(srgoal_client src/srgoal_client.cpp)
 add_executable(srgoal_server src/srgoal_server.cpp)
+add_executable(srgoal_server_ovr src/srgoal_server_ovr.cpp)
+
 
 #add_executable(${PROJECT_NAME}_node src/actionlib_tutorials_node.cpp)
 
@@ -173,7 +175,8 @@ add_executable(srgoal_server src/srgoal_server.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(
   srgoal_client
-  srgoal_server 
+  srgoal_server
+  srgoal_server_ovr 
   ${${PROJECT_NAME}_EXPORTED_TARGETS} 
   # ${catkin_EXPORTED_TARGETS}
   )
@@ -183,6 +186,11 @@ add_dependencies(
 #target_link_libraries(${PROJECT_NAME}_node
 target_link_libraries(
   srgoal_server
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(
+  srgoal_server_ovr
   ${catkin_LIBRARIES}
 )
 
