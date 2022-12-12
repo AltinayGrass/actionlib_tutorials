@@ -108,13 +108,13 @@ public:
     target_pose1.pose.position.z = goal->pos.position.z;
     planning_components->setGoal(target_pose1, "flange");
     
-    const moveit_cpp::PlanningComponent::PlanRequestParameters params = {"","ompl",1,0.1,goal->vel/100.0,goal->acc/100.0};
-    // params.max_acceleration_scaling_factor=0.2;
-    // params.max_velocity_scaling_factor=0.2;
-    // params.planning_attempts=1;
-    // params.planning_pipeline="ompl";
-    // params.planning_time=0.1;
-    // params.planner_id="";
+    moveit_cpp::PlanningComponent::PlanRequestParameters params;// = {"","ompl",1,0.1,goal->vel/100.0,goal->acc/100.0};
+    params.max_acceleration_scaling_factor=goal->acc/100.0;
+    params.max_velocity_scaling_factor=goal->vel/100.0;
+    params.planning_attempts=1;
+    params.planning_pipeline="ompl";
+    params.planning_time=0.1;
+    params.planner_id="";
     
     // Now, we call the PlanningComponents to compute the plan and visualize it.
     // Note that we are just planning
