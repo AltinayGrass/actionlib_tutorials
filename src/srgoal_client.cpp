@@ -10,6 +10,7 @@
 struct Pose
 {
     double x, y, z, q1, q2, q3, q4;
+    double vel,acc;
 };
 
 namespace BT
@@ -26,7 +27,7 @@ Pose convertFromString(StringView key)
 {
     // three real numbers separated by semicolons
     auto parts = BT::splitString(key, ';');
-    if (parts.size() != 7)
+    if (parts.size() != 9)
     {
         throw BT::RuntimeError("invalid input)");
     }
@@ -40,6 +41,8 @@ Pose convertFromString(StringView key)
         output.q2    = convertFromString<double>(parts[4]);
         output.q3    = convertFromString<double>(parts[5]);
         output.q4    = convertFromString<double>(parts[6]);
+        output.vel   = convertFromString<double>(parts[7]);
+        output.acc   = convertFromString<double>(parts[8]);
         return output;
     }
 }
@@ -104,6 +107,8 @@ BT::NodeStatus MoveBaseAction::onStart()
   goal.pos.orientation.y = _goal.q2;
   goal.pos.orientation.z = _goal.q3;
   goal.pos.orientation.w = _goal.q4;
+  goal.vel=_goal.vel;
+  goal.acc=_goal.acc;
   ac.sendGoal(goal);
 
   // We use this counter to simulate an action that takes a certain

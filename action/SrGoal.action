@@ -1,5 +1,7 @@
 #goal definition
 geometry_msgs/Pose pos
+float64 vel
+float64 acc
 ---
 #result definition
 bool done
